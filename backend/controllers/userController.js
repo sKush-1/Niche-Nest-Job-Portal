@@ -74,7 +74,6 @@ export const register = catchAsyncErrors(async (req, res, next) => {
   }
 });
 
-
 export const login = catchAsyncErrors(async (req, res, next) => {
   const { role, email, password } = req.body;
   if (!role || !email || !password) {
@@ -94,7 +93,6 @@ export const login = catchAsyncErrors(async (req, res, next) => {
     return next(new ErrorHandler("Invalid user role.", 400));
   }
   sendToken(user, 200, res, "User logged in successfully.");
-  
 });
 
 export const logout = catchAsyncErrors(async (req, res, next) => {
@@ -109,8 +107,6 @@ export const logout = catchAsyncErrors(async (req, res, next) => {
       message: "Logged out successfully.",
     });
 });
-
-
 
 export const getUser = catchAsyncErrors(async (req, res, next) => {
   const user = req.user;
@@ -133,7 +129,6 @@ export const updateProfile = catchAsyncErrors(async (req, res, next) => {
       thirdNiche: req.body.thirdNiche,
     },
   };
-  console.log(req.body)
   const { firstNiche, secondNiche, thirdNiche } = newUserData.niches;
 
   if (
