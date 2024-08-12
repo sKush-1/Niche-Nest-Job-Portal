@@ -1,7 +1,6 @@
 import { catchAsyncErrors } from "../middlewares/catchAsyncErrors.js";
 import ErrorHandler from "../middlewares/error.js";
 import { Job } from "../models/jobSchema.js";
-import { User } from "../models/userSchema.js";
 
 export const postJob = catchAsyncErrors(async (req, res, next) => {
   const {
@@ -69,14 +68,6 @@ export const postJob = catchAsyncErrors(async (req, res, next) => {
   });
 });
 
-export const getMyJobs = catchAsyncErrors(async (req, res, next) => {
-  const myJobs = await Job.find({ postedBy: req.user._id });
-  res.status(200).json({
-    success: true,
-    myJobs,
-  });
-});
-
 export const getAllJobs = catchAsyncErrors(async (req, res, next) => {
   const { city, niche, searchKeyword } = req.query;
   const query = {};
@@ -86,7 +77,6 @@ export const getAllJobs = catchAsyncErrors(async (req, res, next) => {
   if (niche) {
     query.jobNiche = niche;
   }
-
   if (searchKeyword) {
     query.$or = [
       { title: { $regex: searchKeyword, $options: "i" } },
@@ -94,13 +84,19 @@ export const getAllJobs = catchAsyncErrors(async (req, res, next) => {
       { introduction: { $regex: searchKeyword, $options: "i" } },
     ];
   }
-
   const jobs = await Job.find(query);
-
   res.status(200).json({
-    success: "true",
+    success: true,
     jobs,
     count: jobs.length,
+  });
+});
+
+export const getMyJobs = catchAsyncErrors(async (req, res, next) => {
+  const myJobs = await Job.find({ postedBy: req.user._id });
+  res.status(200).json({
+    success: true,
+    myJobs,
   });
 });
 
@@ -118,18 +114,13 @@ export const deleteJob = catchAsyncErrors(async (req, res, next) => {
 });
 
 export const getASingleJob = catchAsyncErrors(async (req, res, next) => {
-    const {id} = req.params;
-    const job = await Job.findById(id);
-
-    if(!job){
-        return next(new ErrorHandler("Job not found"), 404);
-    }
-
-    res
-    .status(201)
-    .json({
-        "success": true,
-        job,
-    })
-
+  const { id } = req.params;
+  const job = await Job.findById(id);
+  if (!job) {
+    return next(new ErrorHandler("Job not found.", 404));
+  }
+  res.status(200).json({
+    success: true,
+    job,
+  });
 });
