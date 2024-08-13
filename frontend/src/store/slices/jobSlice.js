@@ -108,7 +108,7 @@ export const fetchJobs =
   async (dispatch) => {
     try {
       dispatch(jobSlice.actions.requestForAllJobs());
-      let link = `${import.meta.VITE_BACKEND_URL}/api/v1/job/getall?`;
+      let link = `${VITE_BACKEND_URL}/api/v1/job/getall?`;
       let queryParams = [];
       if (searchKeyword) {
         queryParams.push(`searchKeyword=${searchKeyword}`);
@@ -147,7 +147,7 @@ export const postJob = (data) => async (dispatch) => {
   dispatch(jobSlice.actions.requestForPostJob());
   try {
     const response = await axios.post(
-      `${import.meta.BACKEND_URL}/api/v1/job/post`,
+      `${import.meta.VITE_BACKEND_URL}/api/v1/job/post`,
       data,
       { withCredentials: true, headers: { "Content-Type": "application/json" } }
     );
@@ -162,7 +162,7 @@ export const getMyJobs = () => async (dispatch) => {
   dispatch(jobSlice.actions.requestForMyJobs());
   try {
     const response = await axios.get(
-      `${import.meta.BACKEND_URL}/api/v1/job/getmyjobs`,
+      `${import.meta.VITE_BACKEND_URL}/api/v1/job/getmyjobs`,
       { withCredentials: true }
     );
     dispatch(jobSlice.actions.successForMyJobs(response.data.myJobs));
@@ -176,7 +176,7 @@ export const deleteJob = (id) => async (dispatch) => {
   dispatch(jobSlice.actions.requestForDeleteJob());
   try {
     const response = await axios.delete(
-      `${import.meta.BACKEND_URL}/api/v1/job/delete/${id}`,
+      `${import.meta.VITE_BACKEND_URL}/api/v1/job/delete/${id}`,
       { withCredentials: true }
     );
     dispatch(jobSlice.actions.successForDeleteJob(response.data.message));
