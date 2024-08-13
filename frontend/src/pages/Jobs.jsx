@@ -14,6 +14,7 @@ const Jobs = () => {
   const [searchKeyword, setSearchKeyword] = useState("");
 
   const { jobs, loading, error } = useSelector((state) => state.jobs);
+  
 
   const handleCityChange = (city) => {
     setCity(city);
