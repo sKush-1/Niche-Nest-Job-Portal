@@ -19,6 +19,7 @@ export const postApplication = catchAsyncErrors(async (req, res, next) => {
     coverLetter,
     role: "Job Seeker",
   };
+
   const jobDetails = await Job.findById(id);
   if (!jobDetails) {
     return next(new ErrorHandler("Job not found.", 404));
@@ -32,6 +33,7 @@ export const postApplication = catchAsyncErrors(async (req, res, next) => {
       new ErrorHandler("You have already applied for this job.", 400)
     );
   }
+
   if (req.files && req.files.resume) {
     const { resume } = req.files;
     try {

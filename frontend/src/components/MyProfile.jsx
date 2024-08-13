@@ -83,7 +83,7 @@ const MyProfile = () => {
         <input
           type="text"
           disabled
-          value={user && user.createdAt}
+          value={user && user.createdAt.substring(0,10)}
           onChange={(e) => e.target.value}
         />
       </div>

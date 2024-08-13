@@ -33,7 +33,7 @@ const Dashboard = () => {
       dispatch(clearAllUserErrors());
     }
     if (!isAuthenticated) {
-      navigateTo("/");
+      navigateTo("/dashboard");
     }
   }, [dispatch, error, loading, isAuthenticated]);
 
