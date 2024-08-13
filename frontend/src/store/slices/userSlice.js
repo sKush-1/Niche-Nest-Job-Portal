@@ -142,7 +142,7 @@ export const getUser = () => async (dispatch) => {
 export const logout = () => async (dispatch) => {
   try {
     const response = await axios.get(
-      `${import.meta.env.VITE_BACKEND_URL}/v1/user/logout`,
+      `${import.meta.env.VITE_BACKEND_URL}/api/v1/user/logout`,
       {
         withCredentials: true,
       }
